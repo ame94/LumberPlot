@@ -1,0 +1,12 @@
+name: LumberPlot
+version: 1.0
+description: Define protected tree farm plots
+author: ame94
+main: ca.ame94.lumberplot.PluginMain
+depend: [WorldEdit]
+
+commands:
+    lumberplot:
+        description: Modify plugin settings
+        permission: lumberplot.admin
+        permission-message: §4You are not permitted to use this plugin.
