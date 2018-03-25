@@ -21,7 +21,6 @@ public class PluginMain extends JavaPlugin {
         PluginMgr.Init(this);
         Config.Init();
         WE.Init();
-        Config.loadStoredPlots();
 
         PluginMgr.RegisterEvent(new PlayerBreakBlock());
         PluginMgr.RegisterEvent(new PlayerPlaceBlock());

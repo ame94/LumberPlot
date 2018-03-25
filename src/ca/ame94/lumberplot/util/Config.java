@@ -20,6 +20,8 @@ public class Config {
             Logger.Info("Creating default configuration...");
             p.getConfig().options().copyDefaults(true);
             p.saveConfig();
+        } else {
+            loadStoredPlots();
         }
     }
 
@@ -54,12 +56,18 @@ public class Config {
             String worldName = plots.getString( entry + ".world");
             World world = PluginMgr.getPlugin().getServer().getWorld(worldName);
 
-            Double x1 = plots.getDouble("plots." + entry + ".pos1.x");
-            Double y1 = plots.getDouble("plots." + entry + ".pos1.y");
-            Double z1 = plots.getDouble("plots." + entry + ".pos1.z");
-            Double x2 = plots.getDouble("plots." + entry + ".pos2.x");
-            Double y2 = plots.getDouble("plots." + entry + ".pos2.y");
-            Double z2 = plots.getDouble("plots." + entry + ".pos2.z");
+
+            Double x1 = plots.getDouble(entry + ".pos1.x");
+            Double y1 = plots.getDouble(entry + ".pos1.y");
+            Double z1 = plots.getDouble(entry + ".pos1.z");
+            Double x2 = plots.getDouble(entry + ".pos2.x");
+            Double y2 = plots.getDouble(entry + ".pos2.y");
+            Double z2 = plots.getDouble(entry + ".pos2.z");
+
+            Logger.Info("Plot " + entry + " in world " + worldName + ":");
+            Logger.Info("  POS1" + new Location(world, x1, y1, z1).toString());
+            Logger.Info("  POS2" + new Location(world, x2, y2, z2).toString());
+            Logger.Info("");
 
             LumberPlot.put(entry, new CuboidSelection(world, new Location(world, x1, y1, z1), new Location(world, x2, y2, z2)));
         }
