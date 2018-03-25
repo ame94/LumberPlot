@@ -18,9 +18,6 @@ public class LeafDecay implements Listener {
         if (LumberPlot.isLocationUnderProtection(event.getBlock().getLocation())) {
             event.setCancelled(true);
             event.getBlock().setType(Material.AIR);
-            Logger.Info("Decay DENIED");
-        } else {
-            Logger.Info("Decay permitted");
         }
     }
 }
