@@ -1,9 +1,9 @@
 # LumberPlot
----
 
-![LumberPlot Logo](https://github.com/ame94/LumberPlot/blob/master/logo.png)
-
-> *Automated plots for all your lumber needs!*
+<center>
+<img src=https://github.com/ame94/LumberPlot/blob/master/logo.png"><br>
+Automated plots for all your lumber needs!<br>
+</center>
 
 Tired of players not replanting after harvest? Sick of players putting blocks
 that don't belong in the farm or it simply just getting griefed?
