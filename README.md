@@ -1,7 +1,7 @@
 # LumberPlot
 ---
 
-[LumberPlot Logo](https://github.com/ame94/LumberPlot/blob/master/logo.png)
+![LumberPlot Logo](https://github.com/ame94/LumberPlot/blob/master/logo.png)
 
 > *Automated plots for all your lumber needs!*
 
@@ -30,10 +30,13 @@ LumberPlot's only requirement is WorldEdit.
 Node setup is simple and straight forward:
  
 | **Node** | **Description** |
+| --- | --- |
 | `lumberplot.admin` | Full perms to create, delete and modify inside of plots |
 | `lumberplot.modify` | Allows block changes within existing plots |
 
 ### Command reference:
+| **Command** | **Description** |
+| --- | --- |
 | `/lumberplot define <plotname>` | Defines a new plot for the world you're in |
 | `/lumberplot delete <plotname>` | Removes a plot. |
 | `/lumberplot list` | Gets a listing of all plots. |
