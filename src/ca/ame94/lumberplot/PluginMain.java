@@ -34,34 +34,68 @@ public class PluginMain extends JavaPlugin {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
+
+            sender.sendMessage("LumberPlot help:");
+            sender.sendMessage("/lumberplot list §aDisplays defined plots");
+            sender.sendMessage("/lumberplot define <plotname> §aDefine a new plot");
+            sender.sendMessage("/lumberplot delete <plotname> §aDeletes a plot");
+            sender.sendMessage("/lumberplot reload §aReloads the config");
+            return true;
+        }
 
         if (args[0].equalsIgnoreCase("reload")) {
+            LumberPlot.clear();
             Config.loadStoredPlots();
             return true;
         }
 
         if (args[0].equalsIgnoreCase("list")) {
             LumberPlot.listPlots((Player)sender);
+            return true;
+        }
+
+        if (args[0].equalsIgnoreCase("delete")) {
+            if (args.length != 2) {
+                sender.sendMessage("Usage: /lumberplot delete <plotname>");
+                return true;
+            }
+            String plotName = args[1];
+            Boolean cleared = LumberPlot.clear(plotName);
+            if (cleared) {
+                Config.clearPlot(plotName);
+                sender.sendMessage("Plot removed.");
+            } else {
+                sender.sendMessage("Plot not found!");
+            }
+            return true;
         }
 
         if (sender instanceof Player) {
             if (args[0].equalsIgnoreCase("define")) {
+                Player player = (Player)sender;
 
                 if (args.length != 2) {
                     sender.sendMessage("Usage: /lumberplot define <plotname>");
                     return true;
                 }
 
-                Selection sel = WE.get().getSelection(((Player) sender).getPlayer());
+                String plotName = args[1];
+                Selection sel = WE.get().getSelection(player);
+
                 if (sel != null) {
+                    String worldName = player.getWorld().getName();
                     int length = sel.getLength();
                     int width = sel.getWidth();
                     int height = sel.getHeight();
-                    sender.sendMessage("Using a selection of " + length + "x" + width + "x" + height + " (LWH)");
-                    Config.storePlot(sel, args[1]);
-                    LumberPlot.put(args[1], sel);
+                    sender.sendMessage("Using a selection of " + length + "x" + width + "x" + height + " (LWH) for " + plotName + " in " + worldName);
+
+                    Config.storePlot(sel, plotName);
+                    LumberPlot.put(plotName, sel);
+                    return true;
                 } else {
                     sender.sendMessage("No WorldEdit selection made!");
+                    return true;
                 }
             }
         } else {
@@ -69,6 +103,8 @@ public class PluginMain extends JavaPlugin {
             return true;
         }
 
-        return false;
+        sender.sendMessage("Check §a/lumberplot help §ffor usage information.");
+
+        return true;
     }
 }
