@@ -1,7 +1,7 @@
 # LumberPlot
 
 <center>
-<img src=https://github.com/ame94/LumberPlot/blob/master/logo.png"><br>
+<img src="https://github.com/ame94/LumberPlot/blob/master/logo.png"><br>
 Automated plots for all your lumber needs!<br>
 </center>
 
