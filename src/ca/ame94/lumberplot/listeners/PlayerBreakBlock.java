@@ -13,9 +13,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 public class PlayerBreakBlock implements Listener {
-
-
-
     /**
      * Handle block break events. Allow only leaf and log blocks to be broken if
      * the player doesn't have creative or the required permission node.
@@ -28,7 +25,7 @@ public class PlayerBreakBlock implements Listener {
         if (LumberPlot.isLocationUnderProtection(block.getLocation())) {
             Player player = event.getPlayer();
             boolean inCreative = player.getGameMode().equals(GameMode.CREATIVE);
-            boolean hasPermission = player.hasPermission("lumberplot.modify");
+            boolean hasPermission = player.hasPermission("lumberplot.admin") | player.hasPermission("lumberplot.modify");
             if (!(inCreative || hasPermission)) {
                 switch (block.getType()) {
                     case SAPLING:
