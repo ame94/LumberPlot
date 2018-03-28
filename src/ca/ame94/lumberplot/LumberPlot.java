@@ -76,8 +76,8 @@ public class LumberPlot {
     }
 
     public static String myCuboidToString(CuboidRegion cr) {
-        Vector p1 = cr.getMinimumPoint();
-        Vector p2 = cr.getMaximumPoint();
+        Vector p1 = cr.getPos1();
+        Vector p2 = cr.getPos2();
 
         String p1Str = "(" + p1.getBlockX() + ", " + p1.getBlockY() + ", " + p1.getBlockZ() + ")";
         String p2Str = "(" + p2.getBlockX() + ", " + p2.getBlockY() + ", " + p2.getBlockZ() + ")";
@@ -106,6 +106,9 @@ public class LumberPlot {
      * @return true if block is protected
      */
     public static boolean isLocationUnderProtection(Location loc) {
+        if (plots.size() == 0) {
+            return false; // nothing is protected
+        }
         // For each plot
         for (String entry : plots.keySet()) {
             Plot plot = plots.get(entry);

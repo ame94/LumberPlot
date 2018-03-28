@@ -45,6 +45,7 @@ public class PluginMain extends JavaPlugin {
         }
 
         if (args[0].equalsIgnoreCase("reload")) {
+            sender.sendMessage("Config file reloaded.");
             LumberPlot.clear();
             Config.loadStoredPlots();
             return true;

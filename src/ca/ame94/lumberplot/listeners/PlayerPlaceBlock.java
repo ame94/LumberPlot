@@ -5,6 +5,7 @@ import org.bukkit.GameMode;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
@@ -14,7 +15,7 @@ public class PlayerPlaceBlock implements Listener {
      * is op) or if in creative mode.
      * @param event The event to handle
      */
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onPlayerPlaceBlock(BlockPlaceEvent event) {
         Block block = event.getBlock();
         if (LumberPlot.isLocationUnderProtection(block.getLocation())) {
