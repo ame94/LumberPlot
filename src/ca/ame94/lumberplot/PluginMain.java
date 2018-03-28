@@ -3,6 +3,7 @@ package ca.ame94.lumberplot;
 import ca.ame94.lumberplot.listeners.LeafDecay;
 import ca.ame94.lumberplot.listeners.PlayerBreakBlock;
 import ca.ame94.lumberplot.listeners.PlayerPlaceBlock;
+import ca.ame94.lumberplot.bstats.Metrics;
 import ca.ame94.lumberplot.util.Config;
 import ca.ame94.lumberplot.util.Logger;
 import ca.ame94.lumberplot.util.PluginMgr;
@@ -25,6 +26,8 @@ public class PluginMain extends JavaPlugin {
         PluginMgr.RegisterEvent(new PlayerBreakBlock());
         PluginMgr.RegisterEvent(new PlayerPlaceBlock());
         PluginMgr.RegisterEvent(new LeafDecay());
+
+        Metrics metrics = new Metrics(this);
     }
 
     @Override

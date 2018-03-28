@@ -1,5 +1,5 @@
 name: LumberPlot
-version: 1.0
+version: 1.1
 description: Define protected tree farm plots
 author: ame94
 main: ca.ame94.lumberplot.PluginMain
