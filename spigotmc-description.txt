@@ -1,0 +1,49 @@
+[LEFT][SIZE=6]LumberPlot[/SIZE]
+
+[IMG]https://github.com/ame94/LumberPlot/raw/master/logo.png[/IMG][/LEFT]
+
+Tired of players not replanting after harvest? Sick of players putting blocks that don't belong in the farm or it simply just getting griefed?
+
+[B]LumberPlot[/B] solves these issues and more.
+
+[B][SIZE=6]-- NOTICE! --[/SIZE][/B]
+This plugin is in its early stages of testing and could have some bugs, please report to me anything you find! Suggestions & feature requests welcome.
+
+[SIZE=5][B]Requirements:[/B][/SIZE]
+LumberPlot's only requirement is WorldEdit.
+
+[SIZE=5][B]Features:[/B][/SIZE]
+[LIST=1]
+[*]Automatic sapling replacement when the log at the base of the tree is harvested.
+[*]Works with all (currently six) tree varieties.
+[*]Players may only break logs, leaves & vines and nothing else.
+[*]Players cannot place any blocks yet bonemeal usage still permitted.
+[*]Drops from Leaf block decay removed to prevent lag. Saplings, apples etc can still be obtained if leaf blocks are broken individually.
+[*]Quickly define any number of plots with WorldEdit's selection wand.
+[*]Multiple world support (Multiverse or anything similar).
+[*]Allows quick adjustments inside plots with permission node or while in creative.
+[/LIST]
+
+[SIZE=5][B]Permissions:[/B][/SIZE]
+Node setup is simple and straight forward:
+
+[FONT=Courier New]lumberplot.admin[/FONT][I] Full perms to create, delete and modify inside of plots.[/I]
+[FONT=Courier New]lumberplot.modify[/FONT][I] Allows block changes within existing plots.[/I]
+
+[SIZE=5][B]Command reference:[/B][/SIZE]
+[FONT=Courier New]/lumberplot define <plotname>[/FONT] [I]Defines a new plot for the world you're in.[/I]
+[FONT=Courier New]/lumberplot delete <plotname>[/FONT] [I]Removes a plot.[/I]
+[FONT=Courier New]/lumberplot list[/FONT] [I]Gets a listing of all plots.[/I]
+[FONT=Courier New]/lumberplot reload[/FONT][I] Reloads the config file.[/I]
+[FONT=Courier New]/lumberplot help[/FONT] [I]Gets help information.[/I]
+
+[SIZE=5][B]Usage:[/B][/SIZE]
+To define a new plot:
+[LIST=1]
+[*]Make a selection with the WorldEdit [FONT=Courier New]//wand[/FONT] tool, [FONT=Courier New]//pos1[/FONT] & [FONT=Courier New]//pos2[/FONT], etc.
+[*]Type [FONT=Courier New]/lumberplot define <plotname>[/FONT] where plotname is your new plot.
+[*]Done! Nothing further is needed and your tree farm is now protected.
+[/LIST]
+[SIZE=5]Donations:[/SIZE]
+[SIZE=4]If you've found this plugin useful and would like to help contribute to my work you can send a tip my way here:
+[SIZE=4] [URL='http://paypal.me/ame94/1']paypal.me/ame94/1[/URL]  [SIZE=6][COLOR=#ff0000][B]❤[/B][/COLOR][/SIZE][/SIZE][/SIZE]
