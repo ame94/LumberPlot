@@ -8,7 +8,13 @@ import ca.ame94.lumberplot.util.Config;
 import ca.ame94.lumberplot.util.Logger;
 import ca.ame94.lumberplot.util.PluginMgr;
 import ca.ame94.lumberplot.util.WE;
-import com.sk89q.worldedit.bukkit.selections.Selection;
+import com.sk89q.worldedit.IncompleteRegionException;
+import com.sk89q.worldedit.LocalSession;
+import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldedit.bukkit.BukkitPlayer;
+import com.sk89q.worldedit.regions.Region;
+import com.sk89q.worldedit.world.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -85,20 +91,28 @@ public class PluginMain extends JavaPlugin {
                 }
 
                 String plotName = args[1];
-                Selection sel = WE.get().getSelection(player);
+                BukkitPlayer bukkitPlayer = BukkitAdapter.adapt(player);
+                LocalSession localSession = WorldEdit.getInstance().getSessionManager().get(bukkitPlayer);
 
-                if (sel != null) {
-                    String worldName = player.getWorld().getName();
-                    int length = sel.getLength();
-                    int width = sel.getWidth();
-                    int height = sel.getHeight();
-                    sender.sendMessage("Using a selection of " + length + "x" + width + "x" + height + " (LWH) for " + plotName + " in " + worldName);
+                Region region = null;
+                try {
+                    region = localSession.getSelection((World) player.getWorld());
+                } catch (IncompleteRegionException e) {
+                    e.printStackTrace();
+                }
 
-                    Config.storePlot(sel, plotName);
-                    LumberPlot.put(plotName, sel);
+                if (region == null) {
+                    Logger.Severe("No WorldEdit selection made!");
                     return true;
                 } else {
-                    sender.sendMessage("No WorldEdit selection made!");
+                    String worldName = player.getWorld().getName();
+                    int length = region.getLength();
+                    int width = region.getWidth();
+                    int height = region.getHeight();
+                    sender.sendMessage("Using a selection of " + length + "x" + width + "x" + height + " (LWH) for " + plotName + " in " + worldName);
+
+                    Config.storePlot(region, plotName);
+                    LumberPlot.put(plotName, region);
                     return true;
                 }
             }

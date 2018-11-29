@@ -2,10 +2,9 @@ package ca.ame94.lumberplot.util;
 
 import ca.ame94.lumberplot.LumberPlot;
 import ca.ame94.lumberplot.Plot;
-import com.sk89q.worldedit.Vector;
-import com.sk89q.worldedit.bukkit.selections.Selection;
+import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.CuboidRegion;
-import org.bukkit.World;
+import com.sk89q.worldedit.regions.Region;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,20 +29,20 @@ public class Config {
     }
 
     /**
-     * Store a plot selection into the config
-     * @param sel The WorldEdit selection
+     * Store a plot region into the config
+     * @param region The WorldEdit region
      * @param name The name of the plot entry
      */
-    public static void storePlot(Selection sel, String name) {
+    public static void storePlot(Region region, String name) {
         FileConfiguration c = PluginMgr.getPlugin().getConfig();
 
-        c.set("plots." + name + ".world", sel.getWorld().getName());
-        c.set("plots." + name + ".pos1.x", sel.getMaximumPoint().getBlockX());
-        c.set("plots." + name + ".pos1.y", sel.getMaximumPoint().getBlockY());
-        c.set("plots." + name + ".pos1.z", sel.getMaximumPoint().getBlockZ());
-        c.set("plots." + name + ".pos2.x", sel.getMinimumPoint().getBlockX());
-        c.set("plots." + name + ".pos2.y", sel.getMinimumPoint().getBlockY());
-        c.set("plots." + name + ".pos2.z", sel.getMinimumPoint().getBlockZ());
+        c.set("plots." + name + ".world", region.getWorld().getName());
+        c.set("plots." + name + ".pos1.x", region.getMaximumPoint().getBlockX());
+        c.set("plots." + name + ".pos1.y", region.getMaximumPoint().getBlockY());
+        c.set("plots." + name + ".pos1.z", region.getMaximumPoint().getBlockZ());
+        c.set("plots." + name + ".pos2.x", region.getMinimumPoint().getBlockX());
+        c.set("plots." + name + ".pos2.y", region.getMinimumPoint().getBlockY());
+        c.set("plots." + name + ".pos2.z", region.getMinimumPoint().getBlockZ());
 
         PluginMgr.getPlugin().saveConfig();
     }
@@ -88,8 +87,11 @@ public class Config {
             Double x2 = plots.getDouble(entry + ".pos2.x");
             Double y2 = plots.getDouble(entry + ".pos2.y");
             Double z2 = plots.getDouble(entry + ".pos2.z");
-            Vector pos1 = new Vector(x1, y1, z1);
-            Vector pos2 = new Vector(x2, y2, z2);
+
+            BlockVector3 pos1 = BlockVector3.ZERO;
+            BlockVector3 pos2 = BlockVector3.ZERO;
+            pos1.add(x1.intValue(), y1.intValue(), z1.intValue());
+            pos2.add(x2.intValue(), y2.intValue(), z2.intValue());
 
             CuboidRegion cr = new CuboidRegion(pos1, pos2);
             Logger.Info("  " + entry + " in " + worldName + ": " + LumberPlot.myCuboidToString(cr));

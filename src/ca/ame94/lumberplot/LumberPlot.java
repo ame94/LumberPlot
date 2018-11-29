@@ -1,12 +1,15 @@
 package ca.ame94.lumberplot;
 
 import ca.ame94.lumberplot.util.Logger;
-import com.sk89q.worldedit.Vector;
-import com.sk89q.worldedit.bukkit.selections.Selection;
+import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.util.BlockVector;
+import org.bukkit.util.Vector;
+
 import java.util.HashMap;
 import java.util.Set;
 
@@ -40,12 +43,16 @@ public class LumberPlot {
     /**
      * Compose a plot object from a WorldEdit selection and place it into the hashmap
      * @param name The name of the new plot
-     * @param sel The WorldEdit selection
+     * @param region The WorldEdit selection
      */
-    public static void put(String name, Selection sel) {
-        Vector pos1 = new Vector(sel.getMinimumPoint().getBlockX(), sel.getMinimumPoint().getBlockY(), sel.getMinimumPoint().getBlockZ());
-        Vector pos2 = new Vector(sel.getMaximumPoint().getBlockX(), sel.getMaximumPoint().getBlockY(), sel.getMaximumPoint().getBlockZ());
-        String world = sel.getWorld().getName();
+    public static void put(String name, Region region) {
+        BlockVector3 pos1 = BlockVector3.ZERO;
+        BlockVector3 pos2 = BlockVector3.ZERO;
+
+        pos1.add(region.getMinimumPoint().getBlockX(), region.getMinimumPoint().getBlockY(), region.getMinimumPoint().getBlockZ());
+        pos2.add(region.getMaximumPoint().getBlockX(), region.getMaximumPoint().getBlockY(), region.getMaximumPoint().getBlockZ());
+
+        String world = region.getWorld().getName();
         plots.put(name, new Plot(pos1, pos2, world));
     }
 
@@ -76,8 +83,8 @@ public class LumberPlot {
     }
 
     public static String myCuboidToString(CuboidRegion cr) {
-        Vector p1 = cr.getPos1();
-        Vector p2 = cr.getPos2();
+        BlockVector3 p1 = cr.getPos1();
+        BlockVector3 p2 = cr.getPos2();
 
         String p1Str = "(" + p1.getBlockX() + ", " + p1.getBlockY() + ", " + p1.getBlockZ() + ")";
         String p2Str = "(" + p2.getBlockX() + ", " + p2.getBlockY() + ", " + p2.getBlockZ() + ")";
@@ -118,8 +125,9 @@ public class LumberPlot {
                 String playerWorld = loc.getWorld().getName();
                 if (playerWorld.equalsIgnoreCase(plotWorld)) {
                     // If location is inside WE selection
-                    Vector vec = new Vector(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
-                    if (plot.contains(vec)) {
+                    BlockVector3 pos = BlockVector3.ZERO;
+                    pos.add(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
+                    if (plot.contains(pos)) {
                         return true;
                     }
                 }

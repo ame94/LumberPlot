@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -29,33 +30,40 @@ public class PlayerBreakBlock implements Listener {
             boolean hasPermission = player.hasPermission("lumberplot.admin") | player.hasPermission("lumberplot.modify");
             if (!(inCreative || hasPermission)) {
                 switch (block.getType()) {
-                    case SAPLING:
+                    case OAK_SAPLING:
+                    case BIRCH_SAPLING:
+                    case SPRUCE_SAPLING:
+                    case JUNGLE_SAPLING:
+                    case ACACIA_SAPLING:
+                    case DARK_OAK_SAPLING:
                     case DIRT:
                     case GRASS:
                         // specifically deny changes to saplings, dirt and grass
                         event.setCancelled(true);
                         break;
-                    case LOG:
-                    case LOG_2:
+                    case OAK_LOG:
+                    case BIRCH_LOG:
+                    case SPRUCE_LOG:
+                    case JUNGLE_LOG:
+                    case ACACIA_LOG:
+                    case DARK_OAK_LOG:
                         Material matBelow = block.getRelative(BlockFace.DOWN).getType();
                         if (matBelow == Material.DIRT || matBelow == Material.GRASS) {
+                            BlockData data = block.getBlockData();
 
-                            //todo: Don't rely on this
-                            byte data = block.getData();
-                            if (block.getType() == Material.LOG_2) {
-                                data -= 4;
-                            }
-                            byte finalData = data;
                             PluginMgr.getPlugin().getServer().getScheduler().scheduleSyncDelayedTask(PluginMgr.getPlugin(), new Runnable() {
                                 public void run() {
-                                    block.setType(Material.SAPLING);
-                                    block.setData(finalData);
+                                    block.setBlockData(data);
                                 }
                             }, 1L);
                         }
                     case VINE:
-                    case LEAVES:
-                    case LEAVES_2:
+                    case OAK_LEAVES:
+                    case BIRCH_LEAVES:
+                    case SPRUCE_LEAVES:
+                    case JUNGLE_LEAVES:
+                    case ACACIA_LEAVES:
+                    case DARK_OAK_LEAVES:
                         // vines, leaves & logs are permitted
                         break;
                     default:

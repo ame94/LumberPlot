@@ -1,6 +1,6 @@
 package ca.ame94.lumberplot;
 
-import com.sk89q.worldedit.Vector;
+import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.CuboidRegion;
 
 /**
@@ -9,7 +9,7 @@ import com.sk89q.worldedit.regions.CuboidRegion;
  */
 public class Plot {
 
-    private Vector pos1, pos2;
+    private BlockVector3 pos1, pos2;
     private String world;
     private CuboidRegion cuboid;
 
@@ -19,11 +19,13 @@ public class Plot {
      * @param pos2 Pos2
      * @param world The world name this cuboid belongs to
      */
-    public Plot(Vector pos1, Vector pos2, String world) {
+    public Plot(BlockVector3 pos1, BlockVector3 pos2, String world) {
         this.pos1 = pos1;
         this.pos2 = pos2;
         this.world = world;
-        cuboid = new CuboidRegion(this.pos1, this.pos2);
+        cuboid = new CuboidRegion(pos1, pos2);
+
+
     }
 
     /**
@@ -31,7 +33,7 @@ public class Plot {
      * @param pos The position in question
      * @return true if point is within cuboid
      */
-    public boolean contains(Vector pos) {
+    public boolean contains(BlockVector3 pos) {
         if (cuboid.contains(pos)) {
             return true;
         } else {
@@ -47,11 +49,11 @@ public class Plot {
         return cuboid;
     }
 
-    public Vector getPos1() {
+    public BlockVector3 getPos1() {
         return pos1;
     }
 
-    public Vector getPos2() {
+    public BlockVector3 getPos2() {
         return pos2;
     }
 
