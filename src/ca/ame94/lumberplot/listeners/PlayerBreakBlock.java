@@ -3,7 +3,6 @@ package ca.ame94.lumberplot.listeners;
 import ca.ame94.lumberplot.LumberPlot;
 import ca.ame94.lumberplot.util.PluginMgr;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -28,7 +27,31 @@ public class PlayerBreakBlock implements Listener {
             Player player = event.getPlayer();
             boolean inCreative = player.getGameMode().equals(GameMode.CREATIVE);
             boolean hasPermission = player.hasPermission("lumberplot.admin") | player.hasPermission("lumberplot.modify");
+
             if (!(inCreative || hasPermission)) {
+                Material newSaplingMaterial = null;
+
+                switch (block.getType()) {
+                    case OAK_LOG:
+                        newSaplingMaterial = Material.OAK_SAPLING;
+                        break;
+                    case BIRCH_LOG:
+                        newSaplingMaterial = Material.BIRCH_SAPLING;
+                        break;
+                    case SPRUCE_LOG:
+                        newSaplingMaterial = Material.SPRUCE_SAPLING;
+                        break;
+                    case JUNGLE_LOG:
+                        newSaplingMaterial = Material.JUNGLE_SAPLING;
+                        break;
+                    case ACACIA_LOG:
+                        newSaplingMaterial = Material.ACACIA_SAPLING;
+                        break;
+                    case DARK_OAK_LOG:
+                        newSaplingMaterial = Material.DARK_OAK_SAPLING;
+                        break;
+                }
+
                 switch (block.getType()) {
                     case OAK_SAPLING:
                     case BIRCH_SAPLING:
@@ -41,6 +64,7 @@ public class PlayerBreakBlock implements Listener {
                         // specifically deny changes to saplings, dirt and grass
                         event.setCancelled(true);
                         break;
+
                     case OAK_LOG:
                     case BIRCH_LOG:
                     case SPRUCE_LOG:
@@ -48,15 +72,17 @@ public class PlayerBreakBlock implements Listener {
                     case ACACIA_LOG:
                     case DARK_OAK_LOG:
                         Material matBelow = block.getRelative(BlockFace.DOWN).getType();
-                        if (matBelow == Material.DIRT || matBelow == Material.GRASS) {
+                        if (matBelow == Material.DIRT || matBelow == Material.GRASS | matBelow == Material.PODZOL) {
                             BlockData data = block.getBlockData();
-
+                            Material finalNewSapling = newSaplingMaterial;
                             PluginMgr.getPlugin().getServer().getScheduler().scheduleSyncDelayedTask(PluginMgr.getPlugin(), new Runnable() {
                                 public void run() {
-                                    block.setBlockData(data);
+                                    block.setType(finalNewSapling);
                                 }
-                            }, 1L);
+                            }, 2L);
                         }
+                        break;
+
                     case VINE:
                     case OAK_LEAVES:
                     case BIRCH_LEAVES:

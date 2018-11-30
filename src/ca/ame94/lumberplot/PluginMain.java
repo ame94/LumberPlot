@@ -14,6 +14,7 @@ import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.bukkit.BukkitPlayer;
 import com.sk89q.worldedit.regions.Region;
+//import com.sk89q.worldedit.world.World;
 import com.sk89q.worldedit.world.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -96,7 +97,8 @@ public class PluginMain extends JavaPlugin {
 
                 Region region = null;
                 try {
-                    region = localSession.getSelection((World) player.getWorld());
+                    World playerWorld = localSession.getSelectionWorld();
+                    region = localSession.getSelection(playerWorld);
                 } catch (IncompleteRegionException e) {
                     e.printStackTrace();
                 }

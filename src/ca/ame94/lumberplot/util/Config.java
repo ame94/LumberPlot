@@ -8,6 +8,7 @@ import com.sk89q.worldedit.regions.Region;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.BlockVector;
 
 import java.util.Set;
 
@@ -81,17 +82,15 @@ public class Config {
         for (String entry : keys) {
             String worldName = plots.getString( entry + ".world");
 
-            Double x1 = plots.getDouble(entry + ".pos1.x");
-            Double y1 = plots.getDouble(entry + ".pos1.y");
-            Double z1 = plots.getDouble(entry + ".pos1.z");
-            Double x2 = plots.getDouble(entry + ".pos2.x");
-            Double y2 = plots.getDouble(entry + ".pos2.y");
-            Double z2 = plots.getDouble(entry + ".pos2.z");
+            int x1 = plots.getInt(entry + ".pos1.x");
+            int y1 = plots.getInt(entry + ".pos1.y");
+            int z1 = plots.getInt(entry + ".pos1.z");
+            int x2 = plots.getInt(entry + ".pos2.x");
+            int y2 = plots.getInt(entry + ".pos2.y");
+            int z2 = plots.getInt(entry + ".pos2.z");
 
-            BlockVector3 pos1 = BlockVector3.ZERO;
-            BlockVector3 pos2 = BlockVector3.ZERO;
-            pos1.add(x1.intValue(), y1.intValue(), z1.intValue());
-            pos2.add(x2.intValue(), y2.intValue(), z2.intValue());
+            BlockVector3 pos1 = BlockVector3.at(x1, y1, z1);
+            BlockVector3 pos2 = BlockVector3.at(x2, y2, z2);
 
             CuboidRegion cr = new CuboidRegion(pos1, pos2);
             Logger.Info("  " + entry + " in " + worldName + ": " + LumberPlot.myCuboidToString(cr));

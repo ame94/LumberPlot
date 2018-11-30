@@ -46,11 +46,8 @@ public class LumberPlot {
      * @param region The WorldEdit selection
      */
     public static void put(String name, Region region) {
-        BlockVector3 pos1 = BlockVector3.ZERO;
-        BlockVector3 pos2 = BlockVector3.ZERO;
-
-        pos1.add(region.getMinimumPoint().getBlockX(), region.getMinimumPoint().getBlockY(), region.getMinimumPoint().getBlockZ());
-        pos2.add(region.getMaximumPoint().getBlockX(), region.getMaximumPoint().getBlockY(), region.getMaximumPoint().getBlockZ());
+        BlockVector3 pos1 = BlockVector3.at(region.getMinimumPoint().getBlockX(), region.getMinimumPoint().getBlockY(), region.getMinimumPoint().getBlockZ());
+        BlockVector3 pos2 = BlockVector3.at(region.getMaximumPoint().getBlockX(), region.getMaximumPoint().getBlockY(), region.getMaximumPoint().getBlockZ());
 
         String world = region.getWorld().getName();
         plots.put(name, new Plot(pos1, pos2, world));
@@ -125,9 +122,7 @@ public class LumberPlot {
                 String playerWorld = loc.getWorld().getName();
                 if (playerWorld.equalsIgnoreCase(plotWorld)) {
                     // If location is inside WE selection
-                    BlockVector3 pos = BlockVector3.ZERO;
-                    pos.add(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
-                    if (plot.contains(pos)) {
+                    if (plot.contains(BlockVector3.at(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ()))) {
                         return true;
                     }
                 }
