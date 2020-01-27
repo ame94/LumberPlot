@@ -53,6 +53,7 @@ public class PlayerBreakBlock implements Listener {
                 }
 
                 switch (block.getType()) {
+                    case SWEET_BERRY_BUSH:
                     case OAK_SAPLING:
                     case BIRCH_SAPLING:
                     case SPRUCE_SAPLING:

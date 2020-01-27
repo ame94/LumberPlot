@@ -1,8 +1,9 @@
 name: LumberPlot
-version: 2
+version: 2.1
 description: Define protected tree farm plots
 author: ame94
 main: ca.ame94.lumberplot.PluginMain
+api-version: 1.15.1
 depend: [WorldEdit]
 
 commands:
